@@ -22,8 +22,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import type { useGuardianStore } from "@/hooks/use-guardian-store"; // Import type
 
 const formSchema = z.object({
-  guardianEmail: z.string().email({ message: "Invalid email address." }),
-  confirmGuardianEmail: z.string().email({ message: "Invalid email address." }),
+  guardianEmail: z.string().trim().email({ message: "Invalid email address." }),
+  confirmGuardianEmail: z.string().trim().email({ message: "Invalid email address." }),
   termsAccepted: z.boolean().refine(val => val === true, {
     message: "You must accept the terms and conditions.",
   }),
