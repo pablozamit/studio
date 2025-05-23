@@ -10,15 +10,16 @@ type GuardianStore = {
   guardianEmail: string | null;
   isGuardianSet: boolean;
   blockedAttempts: number;
+  isInitialized: boolean; // Exposed initialization status
   setGuardianEmail: (email: string) => void;
   incrementBlockedAttempts: () => void;
-  clearGuardianData: () => void; // For testing or reset
+  clearGuardianData: () => void;
 };
 
 export function useGuardianStore(): GuardianStore {
-  const [guardianEmail, setGuardianEmailState] = useState<string | null>(null);
-  const [blockedAttempts, setBlockedAttemptsState] = useState<number>(0);
-  const [isInitialized, setIsInitialized] = useState(false);
+  const [_guardianEmailInternal, setGuardianEmailInternal] = useState<string | null>(null);
+  const [_blockedAttemptsInternal, setBlockedAttemptsInternal] = useState<number>(0);
+  const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -26,22 +27,22 @@ export function useGuardianStore(): GuardianStore {
       const storedAttempts = localStorage.getItem(BLOCKED_ATTEMPTS_KEY);
       
       if (storedEmail) {
-        setGuardianEmailState(storedEmail);
+        setGuardianEmailInternal(storedEmail);
       }
       if (storedAttempts) {
-        setBlockedAttemptsState(parseInt(storedAttempts, 10));
+        setBlockedAttemptsInternal(parseInt(storedAttempts, 10));
       }
-      setIsInitialized(true);
+      setInitialized(true);
     }
   }, []);
 
   const setGuardianEmail = useCallback((email: string) => {
     localStorage.setItem(GUARDIAN_EMAIL_KEY, email);
-    setGuardianEmailState(email);
+    setGuardianEmailInternal(email);
   }, []);
 
   const incrementBlockedAttempts = useCallback(() => {
-    setBlockedAttemptsState(prevAttempts => {
+    setBlockedAttemptsInternal(prevAttempts => {
       const newAttempts = prevAttempts + 1;
       localStorage.setItem(BLOCKED_ATTEMPTS_KEY, newAttempts.toString());
       return newAttempts;
@@ -51,14 +52,21 @@ export function useGuardianStore(): GuardianStore {
   const clearGuardianData = useCallback(() => {
     localStorage.removeItem(GUARDIAN_EMAIL_KEY);
     localStorage.removeItem(BLOCKED_ATTEMPTS_KEY);
-    setGuardianEmailState(null);
-    setBlockedAttemptsState(0);
+    setGuardianEmailInternal(null);
+    setBlockedAttemptsInternal(0);
+    // Consider if setInitialized(false) is needed on reset for some scenarios,
+    // but typically, once initialized, it stays that way for the session.
   }, []);
 
+  const currentGuardianEmail = initialized ? _guardianEmailInternal : null;
+  const currentBlockedAttempts = initialized ? _blockedAttemptsInternal : 0;
+  const currentIsGuardianSet = initialized && !!_guardianEmailInternal;
+
   return {
-    guardianEmail,
-    isGuardianSet: !!guardianEmail && isInitialized,
-    blockedAttempts: isInitialized ? blockedAttempts : 0,
+    guardianEmail: currentGuardianEmail,
+    isGuardianSet: currentIsGuardianSet,
+    blockedAttempts: currentBlockedAttempts,
+    isInitialized: initialized,
     setGuardianEmail,
     incrementBlockedAttempts,
     clearGuardianData,

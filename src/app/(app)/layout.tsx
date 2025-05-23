@@ -14,32 +14,42 @@ import {
   SidebarFooter,
   SidebarInset,
 } from "@/components/ui/sidebar";
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'; // AvatarImage removed as not used directly here with src
 import { Shield } from "lucide-react";
 
 export default function AppLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
-  const { guardianEmail, isGuardianSet } = useGuardianStore();
+  const { guardianEmail, isGuardianSet, isInitialized: storeIsInitialized } = useGuardianStore();
 
   useEffect(() => {
-    if (!isGuardianSet && guardianEmail === null) {
-      // Still initializing, do nothing or show a global loader
-      return;
-    }
-    if (!isGuardianSet) {
+    // Only attempt redirect after the store is initialized
+    if (storeIsInitialized && !isGuardianSet) {
       router.replace('/');
     }
-  }, [isGuardianSet, guardianEmail, router]);
+  }, [storeIsInitialized, isGuardianSet, router]);
 
-  if (!isGuardianSet) {
-    // Render a loading state or null while redirecting
+  if (!storeIsInitialized) {
+    // Store not yet initialized, show a global loader.
+    // This ensures server and client initial renders match.
     return (
-       <div className="flex min-h-screen items-center justify-center">
-          <p>Loading Guardian Profile...</p>
+       <div className="flex min-h-screen items-center justify-center bg-background">
+          <p className="text-foreground">Initializing Guardian Angel...</p>
        </div>
     );
   }
 
+  if (!isGuardianSet) {
+    // Store is initialized, but guardian is not set (e.g., localStorage was empty, or user logged out).
+    // The useEffect above should be handling the redirect to '/'.
+    // Show a loader for this transient state.
+    return (
+       <div className="flex min-h-screen items-center justify-center bg-background">
+          <p className="text-foreground">Verifying Guardian Profile...</p>
+       </div>
+    );
+  }
+
+  // Store is initialized and guardian is set, render the main app layout
   return (
     <SidebarProvider defaultOpen>
       <Sidebar variant="sidebar" collapsible="icon">
