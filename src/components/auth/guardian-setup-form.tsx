@@ -22,13 +22,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import type { useGuardianStore } from "@/hooks/use-guardian-store"; // Import type
 
 const formSchema = z.object({
-  guardianEmail: z.string().trim().email({ message: "Invalid email address." }),
-  confirmGuardianEmail: z.string().trim().email({ message: "Invalid email address." }),
+  guardianEmail: z.string().trim().email({ message: "Dirección de correo electrónico inválida." }),
+  confirmGuardianEmail: z.string().trim().email({ message: "Dirección de correo electrónico inválida." }),
   termsAccepted: z.boolean().refine(val => val === true, {
-    message: "You must accept the terms and conditions.",
+    message: "Debes aceptar los términos y condiciones.",
   }),
 }).refine(data => data.guardianEmail === data.confirmGuardianEmail, {
-  message: "Guardian emails do not match.",
+  message: "Los correos electrónicos del guardián no coinciden.",
   path: ["confirmGuardianEmail"],
 });
 
@@ -57,9 +57,9 @@ export function GuardianSetupForm({ onSetupComplete }: GuardianSetupFormProps) {
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground">
             <ShieldCheck size={32} />
           </div>
-          <CardTitle className="text-3xl font-bold">Guardian Angel Setup</CardTitle>
+          <CardTitle className="text-3xl font-bold">Configuración de Ángel Guardián</CardTitle>
           <CardDescription>
-            Configure your guardian to receive alerts and keep your browsing safe. This email cannot be changed later.
+            Configura tu guardián para recibir alertas y mantener tu navegación segura. Este correo no se podrá cambiar después.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -70,9 +70,9 @@ export function GuardianSetupForm({ onSetupComplete }: GuardianSetupFormProps) {
                 name="guardianEmail"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Guardian's Email</FormLabel>
+                    <FormLabel>Correo del Guardián</FormLabel>
                     <FormControl>
-                      <Input placeholder="guardian@example.com" {...field} />
+                      <Input placeholder="guardian@ejemplo.com" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -83,9 +83,9 @@ export function GuardianSetupForm({ onSetupComplete }: GuardianSetupFormProps) {
                 name="confirmGuardianEmail"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Confirm Guardian's Email</FormLabel>
+                    <FormLabel>Confirmar Correo del Guardián</FormLabel>
                     <FormControl>
-                      <Input placeholder="guardian@example.com" {...field} />
+                      <Input placeholder="guardian@ejemplo.com" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -104,10 +104,10 @@ export function GuardianSetupForm({ onSetupComplete }: GuardianSetupFormProps) {
                     </FormControl>
                     <div className="space-y-1 leading-none">
                       <FormLabel>
-                        I agree to the <a href="#" className="text-primary hover:underline">terms and conditions</a>.
+                        Acepto los <a href="#" className="text-primary hover:underline">términos y condiciones</a>.
                       </FormLabel>
                       <FormDescription>
-                        This is a demo application. No actual screen monitoring or email sending will occur.
+                        Esta es una aplicación de demostración. No se realizará ninguna monitorización de pantalla ni envío de correos reales.
                       </FormDescription>
                        <FormMessage />
                     </div>
@@ -115,7 +115,7 @@ export function GuardianSetupForm({ onSetupComplete }: GuardianSetupFormProps) {
                 )}
               />
               <Button type="submit" className="w-full text-lg">
-                Set Guardian & Start Protecting
+                Establecer Guardián y Comenzar a Proteger
               </Button>
             </form>
           </Form>

@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({ // Corrected usage
 });
 
 export const metadata: Metadata = {
-  title: 'Guardian Angel',
-  description: 'Your personal content safeguard.',
+  title: 'Ángel Guardián',
+  description: 'Tu protector de contenido personal.',
 };
 
 export default function RootLayout({
@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
         <Toaster />

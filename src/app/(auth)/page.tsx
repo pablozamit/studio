@@ -49,7 +49,7 @@ export default function SetupPage() {
     // This state should be very transient.
     return (
       <div className="flex min-h-screen flex-col items-center justify-center">
-        <p>Loading dashboard...</p>
+        <p>Cargando panel de control...</p>
       </div>
     );
   }

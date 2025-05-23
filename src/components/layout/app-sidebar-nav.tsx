@@ -12,8 +12,8 @@ import {
 } from "@/components/ui/sidebar";
 
 const navItems = [
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/settings", label: "Settings", icon: Settings },
+  { href: "/dashboard", label: "Panel de Control", icon: LayoutDashboard },
+  { href: "/settings", label: "Configuración", icon: Settings },
 ];
 
 export function AppSidebarNav() {

@@ -33,7 +33,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
     // This ensures server and client initial renders match.
     return (
        <div className="flex min-h-screen items-center justify-center bg-background">
-          <p className="text-foreground">Initializing Guardian Angel...</p>
+          <p className="text-foreground">Iniciando Ángel Guardián...</p>
        </div>
     );
   }
@@ -44,7 +44,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
     // Show a loader for this transient state.
     return (
        <div className="flex min-h-screen items-center justify-center bg-background">
-          <p className="text-foreground">Verifying Guardian Profile...</p>
+          <p className="text-foreground">Verificando perfil del guardián...</p>
        </div>
     );
   }
@@ -58,11 +58,11 @@ export default function AppLayout({ children }: { children: ReactNode }) {
               <div className="flex h-full w-full items-center justify-center rounded-full bg-sidebar-accent text-sidebar-accent-foreground">
                 <Shield size={24}/>
               </div>
-              <AvatarFallback>GA</AvatarFallback>
+              <AvatarFallback>AG</AvatarFallback>
             </Avatar>
            <div className="group-data-[collapsible=icon]:hidden ml-2">
-             <p className="font-semibold text-sm">Guardian Angel</p>
-             <p className="text-xs text-sidebar-foreground/80">Protecting Your Space</p>
+             <p className="font-semibold text-sm">Ángel Guardián</p>
+             <p className="text-xs text-sidebar-foreground/80">Protegiendo Tu Espacio</p>
            </div>
         </SidebarHeader>
         <SidebarContent>
@@ -70,7 +70,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
         </SidebarContent>
         <SidebarFooter className="p-4">
            <div className="group-data-[collapsible=icon]:hidden text-xs text-sidebar-foreground/70">
-            © {new Date().getFullYear()} Guardian Angel
+            © {new Date().getFullYear()} Ángel Guardián
            </div>
         </SidebarFooter>
       </Sidebar>

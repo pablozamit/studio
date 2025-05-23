@@ -18,49 +18,49 @@ export default function DashboardPage() {
     incrementBlockedAttempts();
     setIsOverlayOpen(true);
     toast({
-      title: "Content Alert Sent",
-      description: `Guardian ${guardianEmail || ''} notified of inappropriate content detection.`,
+      title: "Alerta de Contenido Enviada",
+      description: `Guardián ${guardianEmail || ''} notificado de detección de contenido inapropiado.`,
       variant: "default",
-      action: <Button variant="ghost" size="sm" onClick={() => {}}><Mail className="mr-2 h-4 w-4" />Details</Button>,
+      action: <Button variant="ghost" size="sm" onClick={() => {}}><Mail className="mr-2 h-4 w-4" />Detalles</Button>,
     });
   };
 
   const handleSimulateTamper = () => {
     toast({
-      title: "Tamper Alert Sent",
-      description: `Guardian ${guardianEmail || ''} notified of a potential tamper attempt.`,
+      title: "Alerta de Manipulación Enviada",
+      description: `Guardián ${guardianEmail || ''} notificado de un posible intento de manipulación.`,
       variant: "destructive",
-      action: <Button variant="ghost" size="sm" onClick={() => {}}><AlertTriangle className="mr-2 h-4 w-4" />Review</Button>,
+      action: <Button variant="ghost" size="sm" onClick={() => {}}><AlertTriangle className="mr-2 h-4 w-4" />Revisar</Button>,
     });
   };
 
   return (
     <div className="container mx-auto py-8 px-4 md:px-6">
-      <h1 className="text-3xl font-bold mb-8 text-foreground">Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-8 text-foreground">Panel de Control</h1>
       
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Card className="shadow-lg">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Blocked Attempts</CardTitle>
+            <CardTitle className="text-sm font-medium">Intentos Bloqueados</CardTitle>
             <BarChart3 className="h-5 w-5 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-4xl font-bold text-primary">{blockedAttempts}</div>
             <p className="text-xs text-muted-foreground mt-1">
-              Total inappropriate content access attempts blocked.
+              Total de intentos de acceso a contenido inapropiado bloqueados.
             </p>
           </CardContent>
         </Card>
 
         <Card className="shadow-lg md:col-span-2 lg:col-span-1">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Guardian Email</CardTitle>
+            <CardTitle className="text-sm font-medium">Correo del Guardián</CardTitle>
             <Mail className="h-5 w-5 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-lg font-semibold text-accent">{guardianEmail || "Not set"}</div>
+            <div className="text-lg font-semibold text-accent">{guardianEmail || "No establecido"}</div>
             <p className="text-xs text-muted-foreground mt-1">
-              Notifications will be sent to this address.
+              Las notificaciones se enviarán a esta dirección.
             </p>
           </CardContent>
         </Card>
@@ -71,15 +71,15 @@ export default function DashboardPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <ShieldAlert className="h-6 w-6 text-destructive" />
-              Simulate Content Detection
+              Simular Detección de Contenido
             </CardTitle>
             <CardDescription>
-              Test the content blocking and guardian notification flow.
+              Prueba el bloqueo de contenido y el flujo de notificación al guardián.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Button onClick={handleSimulateDetection} className="w-full bg-destructive hover:bg-destructive/90">
-              Trigger Detection
+              Activar Detección
             </Button>
           </CardContent>
         </Card>
@@ -88,15 +88,15 @@ export default function DashboardPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <AlertTriangle className="h-6 w-6 text-orange-500" />
-             Simulate Tamper Attempt
+             Simular Intento de Manipulación
             </CardTitle>
             <CardDescription>
-              Test the tamper detection and guardian notification.
+              Prueba la detección de manipulación y la notificación al guardián.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Button onClick={handleSimulateTamper} variant="outline" className="w-full border-orange-500 text-orange-500 hover:bg-orange-500/10">
-              Trigger Tamper Alert
+              Activar Alerta de Manipulación
             </Button>
           </CardContent>
         </Card>
