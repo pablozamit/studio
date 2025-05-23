@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from 'react';
@@ -7,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useGuardianStore } from '@/hooks/use-guardian-store';
 import { useToast } from "@/hooks/use-toast";
 import { BlockingOverlay } from '@/components/core/blocking-overlay';
+import { TestDetection } from '@/components/core/test-detection'; // Nueva importación
 
 
 export default function DashboardPage() {
@@ -36,8 +38,8 @@ export default function DashboardPage() {
 
 
   return (
-    <div className="container mx-auto py-8 px-4 md:px-6">
-      <h1 className="text-3xl font-bold mb-8 text-foreground">Panel de Control</h1>
+    <div className="container mx-auto py-8 px-4 md:px-6 space-y-8"> {/* Added space-y-8 for spacing */}
+      <h1 className="text-3xl font-bold text-foreground">Panel de Control</h1>
       
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Card className="shadow-lg">
@@ -67,13 +69,17 @@ export default function DashboardPage() {
         </Card>
       </div>
 
+      {/* Nueva sección para TestDetection */}
+      <div>
+        <TestDetection setIsOverlayOpen={setIsOverlayOpen} />
+      </div>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-2">
         <Card className="shadow-lg">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <ShieldAlert className="h-6 w-6 text-destructive" />
-              Simular Detección de Contenido
+              Simular Detección de Contenido (Manual)
             </CardTitle>
             <CardDescription>
               Activa manualmente el bloqueo de contenido y la notificación simulada al guardián.
@@ -81,7 +87,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <Button onClick={handleSimulateDetection} className="w-full bg-destructive hover:bg-destructive/90">
-              Activar Detección
+              Activar Detección Manual
             </Button>
           </CardContent>
         </Card>
