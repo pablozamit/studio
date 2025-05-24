@@ -16,7 +16,10 @@ app.on('ready', () => {
   if (isDev) {
     mainWindow.loadURL('http://localhost:3000'); // En desarrollo
   } else {
-    mainWindow.loadFile(path.join(__dirname, 'out', 'index.html')); // En producción
+    const indexPath = path.join(__dirname, 'out', 'index.html');
+    mainWindow.loadFile(indexPath).catch((err) => {
+      console.error('Error loading index.html:', err);
+    });
   }
 });
 
