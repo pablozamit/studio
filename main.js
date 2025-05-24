@@ -2,6 +2,7 @@ const { app, BrowserWindow } = require('electron');
 const path = require('path');
 
 let mainWindow;
+const isDev = !app.isPackaged;
 
 app.on('ready', () => {
   mainWindow = new BrowserWindow({
@@ -12,7 +13,11 @@ app.on('ready', () => {
     },
   });
 
-  mainWindow.loadURL('http://localhost:3000'); // Cambia esto si tienes una URL de producción
+  if (isDev) {
+    mainWindow.loadURL('http://localhost:3000'); // En desarrollo
+  } else {
+    mainWindow.loadFile(path.join(__dirname, 'out', 'index.html')); // En producción
+  }
 });
 
 app.on('window-all-closed', () => {
